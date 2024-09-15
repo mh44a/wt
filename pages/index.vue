@@ -1,13 +1,30 @@
 <script setup lang="ts">
 import 'animate.css';
+import { ref, computed } from 'vue';
+
+const selectedOption = ref<'4week' | '12week' | '24week'>('4week');
+const prices = {
+    '4week': 50,
+    '12week': 130,
+    '24week': 240,
+};
+
+const currentPrice = computed(() => prices[selectedOption.value]);
+
+function setOption(option: '4week' | '12week' | '24week') {
+    selectedOption.value = option;
+}
 </script>
 
 <template>
     <div class="flex flex-col justify-center items-center gap-12">
-        <div class="flex flex-row justify-between items-center w-full p-24 animate__animated animate__fadeInDown">
+        <div class="flex flex-row justify-center items-center gap-12 w-full p-24 animate__animated animate__fadeInDown">
+            <div class="flex justify-center items-center relative">
+                <img src="../assets/img/misra.jpg" alt="" class="w-64 rounded-full float">
+            </div>
             <div class="flex flex-col justify-start items-start gap-4">
                 <span
-                    class="bg-sky-300 bg-opacity-25 rounded-full border border-sky-400 border-opacity-50 text-sky-900 px-4 py-1 text-sm flex flex-row justify-center items-center gap-1">🥳
+                    class="bg-sky-300 bg-opacity-15 rounded-full border border-sky-400 border-opacity-50 text-sky-900 px-4 py-1 text-sm flex flex-row justify-center items-center gap-1">🥳
                     İndirim Kodu: <span class="font-bold">MISRA10</span></span>
                 <div class="flex flex-col justify-start items-start gap-1">
                     <h2 class="text-5xl font-bold">Yeni bir sen için hazır mısın?</h2>
@@ -16,15 +33,14 @@ import 'animate.css';
                 <div class="flex flex-row justify-start items-start gap-4">
                     <button class="bg-gradient-to-r from-[#FF2F8B] to-[#980144] py-2 px-6 text-white rounded-md">Online
                         Koçluk</button>
-                    <button class="border border-zinc-900 hover:bg-zinc-800 py-2 px-6 text-zinc-900 hover:text-white rounded-md">Programlar</button>
+                    <button
+                        class="border border-zinc-900 hover:bg-zinc-800 py-2 px-6 text-zinc-900 hover:text-white rounded-md">Programlar</button>
                 </div>
-            </div>
-            <div class="flex justify-center items-center relative">
-                <img src="../assets/img/misra.jpg" alt="" class="w-64 rounded-full float">
             </div>
         </div>
 
-        <div class="flex flex-col justify-center items-center gap-6 p-12 border-b animate__animated animate__zoomIn w-full">
+        <div
+            class="flex flex-col justify-center items-center gap-6 p-12 border-b animate__animated animate__zoomIn w-full">
             <div class="flex flex-wrap justify-center items-center gap-12">
                 <img src="../assets/img/sponsor/proteinocean.svg" alt="" class="w-24 grayscale opacity-50">
                 <img src="../assets/img/sponsor/macfit_black.png" alt="" class="w-24 grayscale opacity-50">
@@ -34,9 +50,42 @@ import 'animate.css';
 
         <div class="flex flex-col justify-center items-center gap-12 p-12 animate__animated animate__zoomIn w-full">
             <div class="flex flex-col justify-center items-center gap-1">
-                <h2 class="text-4xl font-bold bg-gradient-to-r from-[#FF2F8B] to-[#980144] text-transparent bg-clip-text">Ürün ve Hizmetler</h2>
+                <h2
+                    class="text-4xl font-bold bg-gradient-to-r from-[#FF2F8B] to-[#980144] text-transparent bg-clip-text">
+                    Ürün ve Hizmetler</h2>
                 <span class="text-lg font-normal text-zinc-600">Sana en uygun egzersiz planını zaman kaybetmeden
                     uygulamaya başla!</span>
+            </div>
+            <div
+                class="relative overflow-hidden flex flex-row justify-center items-center gap-2 bg-zinc-100 rounded-full px-2 py-1.5">
+
+                <div class="relative inline-flex items-center rounded-full w-72">
+                    <div :class="{
+                        'left-0': selectedOption === '4week',
+                        'left-1/3': selectedOption === '12week',
+                        'left-2/3': selectedOption === '24week'
+                    }"
+                        class="absolute left-0 w-1/3 h-full bg-gradient-to-r from-[#FF2F8B] to-[#980144] rounded-full transition-all duration-300 ease-in-out">
+                    </div>
+
+                    <div @click="setOption('4week')"
+                        class="relative z-10 w-24 text-center py-1 font-semibold focus:outline-none cursor-pointer"
+                        :class="selectedOption === '4week' ? 'text-white' : 'text-zinc-400'">
+                        4 Hafta
+                    </div>
+
+                    <div @click="setOption('12week')"
+                        class="relative z-10 w-24 text-center py-1 font-semibold focus:outline-none cursor-pointer"
+                        :class="selectedOption === '12week' ? 'text-white' : 'text-zinc-400'">
+                        12 Hafta
+                    </div>
+
+                    <div @click="setOption('24week')"
+                        class="relative z-10 w-24 text-center py-1 font-semibold focus:outline-none cursor-pointer"
+                        :class="selectedOption === '24week' ? 'text-white' : 'text-zinc-400'">
+                        24 Hafta
+                    </div>
+                </div>
             </div>
             <div class="flex flex-col justify-center items-center gap-12">
                 <div class="max-w-1/2 p-6 flex flex-row justify-between items-center gap-12">
@@ -49,10 +98,17 @@ import 'animate.css';
                             <span>Hangi hareketin nereyi çalıştırdığı, hareketlerin detaylı videoları.</span>
                         </div>
                         <div class="flex flex-row justify-between items-center gap-2 mt-4 w-full">
-                            <span class="text-xl font-bold bg-gradient-to-r from-[#FF2F8B] to-[#980144] text-transparent bg-clip-text">100₺</span>
                             <div class="flex flex-row justify-center items-center gap-2">
-                                <button class="bg-gradient-to-r from-[#FF2F8B] to-[#980144] py-2 px-6 text-white rounded-md">Satın Al</button>
-                                <button class="border border-zinc-900 hover:bg-zinc-800 text-zinc-900 hover:text-white py-2 px-6 text-white rounded-md">Detaylar</button>
+                                <span
+                                    class="text-xl font-bold bg-gradient-to-r from-[#FF2F8B] to-[#980144] text-transparent bg-clip-text">100₺</span>
+                                <span class="text-sm font-medium text-zinc-400 line-through bg-clip-text">100₺</span>
+                            </div>
+                            <div class="flex flex-row justify-center items-center gap-2">
+                                <button
+                                    class="bg-gradient-to-r from-[#FF2F8B] to-[#980144] py-2 px-6 text-white rounded-md">Satın
+                                    Al</button>
+                                <button
+                                    class="border border-zinc-900 hover:bg-zinc-800 text-zinc-900 hover:text-white py-2 px-6 rounded-md">Detaylar</button>
                             </div>
                         </div>
                     </div>
@@ -60,27 +116,35 @@ import 'animate.css';
             </div>
         </div>
 
-        <div class="flex flex-col justify-center items-center gap-12 p-12 border-t animate__animated animate__zoomIn w-full">
+        <div
+            class="flex flex-col justify-center items-center gap-12 p-12 border-t animate__animated animate__zoomIn w-full">
             <div class="flex flex-col justify-center items-center gap-1 mt-12">
                 <img src="../assets/img/sponsor/proteinocean.svg" alt="" class="w-32 mb-4">
                 <h2 class="text-4xl font-semibold text-zinc-900">
-                    <span class="bg-gradient-to-r from-[#FF2F8B] to-[#980144] text-transparent bg-clip-text !font-extrabold">“MISRA10”</span> 
-                    kodunu kullanarak <span class="bg-gradient-to-r from-[#FF2F8B] to-[#980144] text-transparent bg-clip-text !font-extrabold">%10 İndirim</span> kazanabilirsiniz.</h2>
+                    <span
+                        class="bg-gradient-to-r from-[#FF2F8B] to-[#980144] text-transparent bg-clip-text !font-extrabold">“MISRA10”</span>
+                    kodunu kullanarak <span
+                        class="bg-gradient-to-r from-[#FF2F8B] to-[#980144] text-transparent bg-clip-text !font-extrabold">%10
+                        İndirim</span> kazanabilirsiniz.
+                </h2>
                 <span class="text-zinc-500">Alışveriş yapmak için tıkla.</span>
             </div>
         </div>
 
         <div class="flex flex-col justify-center items-center gap-12 p-12 border-t animate__animated animate__zoomIn">
             <div class="flex flex-col justify-center items-center gap-1">
-                <h2 class="text-4xl font-bold bg-gradient-to-r from-[#FF2F8B] to-[#980144] text-transparent bg-clip-text">Müşteri Yorumları</h2>
+                <h2
+                    class="text-4xl font-bold bg-gradient-to-r from-[#FF2F8B] to-[#980144] text-transparent bg-clip-text">
+                    Müşteri Yorumları</h2>
                 <span class="text-lg font-normal text-zinc-600">Bizi tercih eden müşterilerin yapmış olduğu
                     yorumlar.</span>
             </div>
-            <div class="flex flex-wrap justify-center items-center gap-6">
-                <div v-for="i in 5" class="w-[350px] p-4 bg-white rounded border border-zinc-200 relative flex flex-col gap-5">
+            <div class="flex flex-wrap justify-center items-center w-full gap-4">
+                <div v-for="i in 5" :key="i"
+                    class="w-[350px] p-4 bg-white rounded border border-zinc-200 masonry-item overflow-hidden flex flex-col gap-5">
                     <div class="flex flex-row justify-between items-center gap-2">
                         <div class="flex flex-row justify-start items-center gap-2">
-                            <img src="../assets/img/test.jpg" alt="" class="w-8 rounded-full">
+                            <img src="../assets/img/test.jpg" alt="" class="w-8 rounded-full" />
                             <div class="flex flex-col justify-start items-start -space-y-2">
                                 <span class="font-bold text-lg">poyraz</span>
                                 <span class="font-normal text-sm text-zinc-500">ürün..</span>
@@ -90,9 +154,21 @@ import 'animate.css';
                             <Icon v-for="i in 5" name="material-symbols:kid-star" style="color: orange;" />
                         </div>
                     </div>
-                    <div class="flex flex-row">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id lorem vel arcu dictum dignissim nec non libero.</div>
+                    <div class="flex flex-row">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
+<style scoped>
+.week-option {
+    position: relative;
+    z-index: 10;
+}
+.masonry-item {
+    flex: 1 1 calc(33.333% - 1rem);
+}
+</style>

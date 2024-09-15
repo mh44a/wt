@@ -1,14 +1,10 @@
 <script setup lang="ts">
 const langData = reactive({
-    lang: '' as string
+    lang: 'tr'
 })
 
-if (langData.lang == '') {
-    langData.lang = localStorage.getItem('locale') as string;
-}
-
 const changeLanguage = () => {
-    useNuxtApp().$setLanguage(localStorage.getItem('locale') == 'tr' ? 'us' : 'tr')
+    useNuxtApp().$setLanguage(langData.lang == 'tr' ? 'us' : 'tr')
     langData.lang = localStorage.getItem('locale') as string;
 }
 </script>
@@ -26,7 +22,7 @@ const changeLanguage = () => {
             </div>
 
             <div class="flex flex-row justify-center items-center gap-4">
-                <i @click="changeLanguage()" :class="`fi fi-${langData.lang == 'us' ? 'tr' : 'us'} cursor-pointer rounded`"></i>
+                <i @click="changeLanguage()" :class="`fi fi-${langData.lang == 'tr' ? 'tr' : 'us'} cursor-pointer rounded`"></i>
 
                 <button class="flex flex-row justify-center items-center gap-2 bg-zinc-900 rounded-full text-white text-sm px-4 py-1 border border-zinc-700 hover:bg-zinc-800">
                     {{ $t('cart') }} <span class="bg-white rounded-full w-4 h-4 text-xs font-bold text-zinc-900">4</span>
