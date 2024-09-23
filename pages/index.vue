@@ -2,6 +2,38 @@
 import 'animate.css';
 import { ref, computed } from 'vue';
 
+const pageData = reactive({
+    selectedSSS: -1 as number,
+})
+
+const sss = {
+    1: {
+        title: "Mısra Bayındır (MISRAPOWER) kimdir?",
+        desc: "2021 Şubat ayında yaşadığım ileri seviye tiroit kanseri sonrasında hayatımı adamak istediğim şeylerden biri olan spor, şu anki hayatımın olmazsa olmaz aktivitelerinden biri. Kilo almak için başladığım bu yol, bir süre sonra okulumu, bölümümü ve eğitimlerimi antrenörlük yapmak istediğim bölüm olan Fitness, Vücut Geliştirme ve Wellness alanında seçerek birçok sertifika ve belge ile altını desteklediğim birebir online koçluk ve kişiye özel antrenman programları hazırlamaya kadar ilerledi. Kişisel ilgi alanım olan beslenme ve sağlık hakkında katılım sağladığım/sağlamakta olduğum eğitimler bir yana, Avrupa Mesleki Yeterlilik Kurumu (EQF) tarafından sertifikasını aldığım 4. Seviye Bireysel Antrenör Sertifikası ve hâlihazırda İstanbul Rumeli Üniversitesi’nde okumakta olduğum Antrenörlük Bölümü: Fitness ve Vücut Geliştirme eğitimim ile devam etmektedir. Kendimi daima geliştirmeye açık olmam ve hayat boyu kalıcı disiplin öğretisi vizyonuyla yapmakta olduğum bu iş şu ana kadar yüzlerce insanı hedefindeki vücuda, en önemlisi disiplin mentalitesine ulaştırdı. Hedefi harekete dönüştürmeye şimdi benimle birlikte başla!",
+    },
+    2: {
+        title: "Online Koçluk sadece antrenman programından mı ibaret oluyor?",
+        desc: "Hayır, Online Koçluk 7/24 benimle bireysel WhatsApp iletişimi dahilinde ödeme sonrası doldurulan form ile tamamiyle kişiye özel olan; antrenman programı, beslenme programı, ölçüm takibi, supplement (takviye) planlaması, kardiyo planlaması, mobilite planlaması, sabah rutini&bel inceltme rehberi, fit tarifler ve recovery (kas iyileşmesi) rehberi ile birlikte her hafta gidişata güncellenen Google Tablolar’dan oluşuyor."
+    },
+    3: {
+        title: "Program kaç gün içinde bana ulaşıyor?",
+        desc: "Kişiye Özel Antrenman Programı aldığınız durumda tarafınıza aynı haftanın pazar günü belirttiğiniz Gmail hesabınıza gönderilecektir. Online Koçluk aldığınız durumda ise aynı haftanın pazar günü WhatsApp’tan ulaşılacak ve program iletilecektir. Hazır programlar satın alım sonrasında hemen Gmail hesabınıza ileteilecektir."
+    },
+    4: {
+        title: "Birebir Online Koçluk hizmetinde Mısra Bayındır ile mi görüşüyoruz, yoksa asistan mı yardımcı oluyor?",
+        desc: "Tüm süreç boyunca yalnızca Mısra Bayındır ile görüşme halinde oluyorsunuz."
+    }
+}
+
+const selectSSS = (index: number) => {
+    if (index == pageData.selectedSSS) {
+        pageData.selectedSSS = -1;
+        return;
+    }
+
+    pageData.selectedSSS = index;
+}
+
 const selectedOption = ref<'4week' | '12week' | '24week'>('4week');
 const prices = {
     '4week': 50,
@@ -30,21 +62,19 @@ function setOption(option: '4week' | '12week' | '24week') {
                     <h2 class="text-5xl font-bold">Yeni bir sen için hazır mısın?</h2>
                     <span class="text-xl font-normal text-zinc-500">Daha iyi bir vücut isteme, onun için çalış.</span>
                 </div>
-                <div class="flex flex-row justify-start items-start gap-4">
+                <div class="flex flex-row justify-start items-center gap-4">
                     <button class="bg-gradient-to-r from-[#FF2F8B] to-[#980144] py-2 px-6 text-white rounded-md">Online
                         Koçluk</button>
-                    <button
-                        class="border border-zinc-900 hover:bg-zinc-800 py-2 px-6 text-zinc-900 hover:text-white rounded-md">Programlar</button>
+                    <button class="bg-zinc-800 py-2 px-6 text-white rounded-md">Programlar</button>
                 </div>
             </div>
         </div>
 
-        <div
-            class="flex flex-col justify-center items-center gap-6 p-12 border-b animate__animated animate__zoomIn w-full">
-            <div class="flex flex-wrap justify-center items-center gap-12">
-                <img src="../assets/img/sponsor/proteinocean.svg" alt="" class="w-24 grayscale opacity-50">
-                <img src="../assets/img/sponsor/macfit_black.png" alt="" class="w-24 grayscale opacity-50">
-                <img src="../assets/img/sponsor/bahs.avif" alt="" class="w-24 grayscale opacity-50">
+        <div class="flex flex-col justify-center items-center gap-6 animate__animated animate__zoomIn w-full">
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <video src="/videos/1.mp4" controls class="rounded-lg shadow-lg w-72" />
+                <video src="/videos/1.mp4" controls class="rounded-lg shadow-lg w-72" />
+                <video src="/videos/1.mp4" controls class="rounded-lg shadow-lg w-72" />
             </div>
         </div>
 
@@ -127,7 +157,29 @@ function setOption(option: '4week' | '12week' | '24week') {
                         class="bg-gradient-to-r from-[#FF2F8B] to-[#980144] text-transparent bg-clip-text !font-extrabold">%10
                         İndirim</span> kazanabilirsiniz.
                 </h2>
-                <span class="text-zinc-500">Alışveriş yapmak için tıkla.</span>
+                <a href="https://proteinocean.com/?ref=misrapower">Alışveriş yapmak için tıkla.</a>
+            </div>
+        </div>
+
+        <div
+            class="flex flex-col justify-center items-center gap-4 p-12 border-t animate__animated animate__zoomIn w-full">
+            <div class="flex flex-col justify-center items-center gap-1">
+                <h2
+                    class="text-4xl font-bold bg-gradient-to-r from-[#FF2F8B] to-[#980144] text-transparent bg-clip-text">
+                    Sıkça Sorulan Sorular</h2>
+            </div>
+
+            <div class="flex flex-col justify-center items-center gap-2 w-full">
+                <div v-for="(sss, index) in sss" :key="index" @click="selectSSS(index)" class="flex flex-col justify-center items-center gap-2 w-full cursor-pointer">
+                    <div
+                        class="flex flex-row justify-between items-center bg-zinc-50 border border-zinc-200 p-2 rounded w-full">
+                        <span class="text-zinc-900 font-bold">{{ sss.title }}</span>
+                        <Icon :name="pageData.selectedSSS == index ? 'mdi:chevron-down' : 'mdi:chevron-up'" />
+                    </div>
+                    <div class="bg-white border border-zinc-100 p-2 rounded w-full" v-if="pageData.selectedSSS == index">
+                        <span class="text-base">{{ sss.desc }}</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -168,6 +220,7 @@ function setOption(option: '4week' | '12week' | '24week') {
     position: relative;
     z-index: 10;
 }
+
 .masonry-item {
     flex: 1 1 calc(33.333% - 1rem);
 }

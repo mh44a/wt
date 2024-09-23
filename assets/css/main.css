@@ -12,6 +12,18 @@ button {
     @apply transition-all hover:-translate-y-0.5
 }
 
+a {
+    @apply text-zinc-500 hover:text-zinc-900 transition-all hover:underline
+}
+
+::-webkit-scrollbar {
+    @apply bg-zinc-200 w-3;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-r from-[#FF2F8B] to-[#980144] rounded-full;
+}
+
 .float {
     animation: floating 3s infinite ease-in-out;
 }
